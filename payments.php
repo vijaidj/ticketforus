@@ -1,9 +1,9 @@
 <?php
-require_once 'controller/connect.php';
+require_once 'config.php';
 require_once 'controller/functions.php';
 
-$orderId = 1;
-$data = getTicketInfo( $orderId );
+$orderId = 2;
+$data = getTicketInfo( $orderId )[0];
 
 $paypalConfig = [
     'email' => 'rajworldmoorthi-facilitator@gmail.com',

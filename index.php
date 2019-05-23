@@ -269,6 +269,7 @@ include 'controller/functions.php';
                  <tbody>
                      <?php
                      $categories = getTicketList();
+                     $seats = getSeatAvailablity();
                      foreach($categories as $key => $val){
                          echo '<tr class="entradaRow cat4" id="1459632278" data-qa="ticket-list-item" data-tipoentradaid="3923048" data-sector="" data-disponibles="2" data-instant-delivery="false" data-best-value="" data-details="" data-restrictions="" data-trust="i" data-btn-href="#" data-btn-target="_self" data-gtm-category="click" data-gtm-action="buy_ticket" data-gtm-label="event_listing" data-gtm-ticket-price="5625.96" data-gtm-quantity-filter="" data-gtm-listing-id="1459632278" itemscope="" itemprop="offers" itemtype="#" style="cursor: pointer;">
                          <td class="td-localidad tabel_1">
@@ -281,10 +282,10 @@ include 'controller/functions.php';
                          </td>
                          <td class="td-disponibles">';
                             echo '<select name="seat_qty" id="seat_qty_'.$val['rowid'].'" ';
-                            for($st = 0; $st <= $val['quantity'];$st++){
+                            for($st = 0; $st <= $seats[$val['rowid']]['result'];$st++){
                               echo '<option value="'.$st.'">'.$st.'</option>';
                             }
-                            echo '</select> of '.$val['quantity'];
+                            echo '</select> of '.$seats[$val['rowid']]['result'];
                          echo '</td>
                          <td class="td-precio hide-phone">
                             <span class="hide-phone">

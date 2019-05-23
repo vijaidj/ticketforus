@@ -3,10 +3,11 @@ include 'header.php';
 include 'controller/functions.php';
 
 $evt_id = 1;
-$prd_id = 1;
-$prd_qty = 2;
+$prd_id = 2;
+$prd_qty = 1;
 
-$eventInfo = getEventList($evt_id);
+$eventInfo_temp = getEventList($evt_id);
+$eventInfo = $eventInfo_temp[0];
 $rowInfo = getAllInfo($prd_id);
 
 $product_cost = $rowInfo['price'];
@@ -112,9 +113,9 @@ $order_cost = ($prd_qty * $product_cost);
             </select>
           </div>
         </div>
-        <input type="text" name="evt_id" id="evt_id"  class="form-control" value="<?=$evt_id?>">
-        <input type="text" name="prd_id" id="prd_id"  class="form-control" value="<?=$prd_id?>">
-        <input type="text" name="prd_qty" id="prd_qty"  class="form-control" value="<?=$prd_qty?>">
+        <input type="hidden" name="evt_id" id="evt_id"  class="form-control" value="<?=$evt_id?>">
+        <input type="hidden" name="prd_id" id="prd_id"  class="form-control" value="<?=$prd_id?>">
+        <input type="hidden" name="prd_qty" id="prd_qty"  class="form-control" value="<?=$prd_qty?>">
         <div class="col-md-6 pull-left">
           <div class="form-group">
             <label for="cus_firstname">Name</label>

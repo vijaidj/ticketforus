@@ -1,5 +1,5 @@
 <?php
-require_once 'controller/connect.php';
+// require_once 'controller/connect.php';
 require_once 'PHPMailer/PHPMailerAutoload.php';
 
 define('APP_URL', 'http://localhost/ticketforus');
