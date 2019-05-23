@@ -9,7 +9,7 @@ function getEventList(){
     $stmt = $con->prepare("SELECT e.id,e.name eventname,e.date,e.time,g.name groundname,g.address FROM event e INNER JOIN ground g ON e.ground_id = g.id WHERE e.date >= ? AND e.time >= ? AND e.status >= ?");
     $stmt->bind_param("ssi", $todaye, $current_time,$status);
     $stmt->execute();
-    $events = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
+    $events = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
     return $events;
 }
