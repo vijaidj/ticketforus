@@ -1,52 +1,11 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Page Title -->
-    <title>Ticket For Us</title>
-    <!-- Favicon -->
-
-    <!-- Animate -->
-    <link rel="stylesheet" href="css/animate.min.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <!-- Owl Carousel -->
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <!-- Cube Portfolio -->
-    <link rel="stylesheet" href="css/cubeportfolio.min.css">
-    <!-- Fancy Box -->
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
-    <!-- REVOLUTION STYLE SHEETS -->
-    <link rel="stylesheet" type="text/css" href="css/settings.css">
-    <link rel="stylesheet" type="text/css" href="css/navigation.css">
-    <!-- Style Sheet -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/table.css">
-    <link rel="stylesheet" href="css/client.css">
-    <!-- Style Customizer's stylesheets -->
-    <link rel="stylesheet" type="text/css" href="css/style-customizer.css">
-    <link rel="stylesheet" type="text/css" href="https://www.hashtaggme.com/demo/ticketforus/less/skin.css">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-</head>
-<body data-spy="scroll" data-target=".navbar" data-offset="90">
 <?php
+include 'header.php';
 include 'controller/connect.php';
-$ground_id = 1;
-$status = 1;
-$stmt = $con->prepare("SELECT * FROM category WHERE ground_id = ? AND status = ?");
-$stmt->bind_param("ii", $ground_id, $status);
-$stmt->execute();
-$categories = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-$stmt->close();
+include 'controller/functions.php';
 ?>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="90">
+
 <!--Loader Start-->
 <div class="loader">
     <div class="loader-inner">
@@ -66,17 +25,6 @@ $stmt->close();
                 <!--Logo Default-->
                 <img src="img/logo.svg" alt="logo" class="logo-dark default">
             </a>
-
-            <!--Nav Links-->
-            <!-- <div class="collapse navbar-collapse" id="wexim">
-                <div class="navbar-nav ml-auto">
-                        <a class="nav-link link scroll" href="#home">Home</a>
-                        <a class="nav-link link scroll" href="#about">Book Tickets</a>
-                        <a class="nav-link link scroll" href="#team">Payment</a>
-                        <a class="nav-link link scroll" href="#Sponsors">Sponsors</a>
-                    <span class="menu-line"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                </div>
-            </div> -->
 
             <!--Side Menu Button-->
             <a href="javascript:void(0)" class="d-inline-block parallax-btn sidemenu_btn" id="sidemenu_toggle">
@@ -320,220 +268,44 @@ $stmt->close();
                  </thead>
                  <tbody>
                      <?php
+                     $categories = getTicketList();
                      foreach($categories as $key => $val){
                          echo '<tr class="entradaRow cat4" id="1459632278" data-qa="ticket-list-item" data-tipoentradaid="3923048" data-sector="" data-disponibles="2" data-instant-delivery="false" data-best-value="" data-details="" data-restrictions="" data-trust="i" data-btn-href="#" data-btn-target="_self" data-gtm-category="click" data-gtm-action="buy_ticket" data-gtm-label="event_listing" data-gtm-ticket-price="5625.96" data-gtm-quantity-filter="" data-gtm-listing-id="1459632278" itemscope="" itemprop="offers" itemtype="#" style="cursor: pointer;">
                          <td class="td-localidad tabel_1">
                             <span class="info-icons pull-right">
                             </span>
-                            <span class="tit-evento">'.$val['category_name'].'</span>
+                            <span class="tit-evento">'.$val['categoryname'].'</span>
                             <span class="posicion">
-                            <span class="asiento" data-qa="ticket-row">Row: 78</span>
+                            <span class="asiento" data-qa="ticket-row">Row: '.$val['rowname'].'</span>
                             </span>
                          </td>
-                         <td class="td-disponibles">
-                            2
-                         </td>
+                         <td class="td-disponibles">';
+                            echo '<select name="seat_qty" id="seat_qty_'.$val['rowid'].'" ';
+                            for($st = 0; $st <= $val['quantity'];$st++){
+                              echo '<option value="'.$st.'">'.$st.'</option>';
+                            }
+                            echo '</select> of '.$val['quantity'];
+                         echo '</td>
                          <td class="td-precio hide-phone">
                             <span class="hide-phone">
-                            <strong data-qa="ticket-list-price">'.$val['ticket_price'].'</strong>
+                            <strong data-qa="ticket-list-price">'.$val['price'].'</strong>
                             </span>
                             <span data-qa="ticket-list-finalprice" class="hide-phone">
-                            '.$val['ticket_price'].'
+                            '.$val['price'].'
                             <br>
                             </span>
                          </td>
                          <td class="td-comprar">
-                            <a href="#" target="_self" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
+                            <a href="javascript:void(0)" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
                             <span class="only-phone">
-                            <span itemprop="price">'.$val['ticket_price'].'</span>
+                            <span itemprop="price">'.$val['price'].'</span>
                             </span>
-                            <span class="hide-phone">Buy</span>
+                            <span class="hide-phone buythis" prd="'.$val['rowid'].'">Buy</span>
                             </a>
                          </td>
                       </tr>';
                      }
                      ?>
-                    <tr class="entradaRow cat4" id="1459632278" data-qa="ticket-list-item" data-tipoentradaid="3923048" data-sector="" data-disponibles="2" data-instant-delivery="false" data-best-value="" data-details="" data-restrictions="" data-trust="i" data-btn-href="#" data-btn-target="_self" data-gtm-category="click" data-gtm-action="buy_ticket" data-gtm-label="event_listing" data-gtm-ticket-price="5625.96" data-gtm-quantity-filter="" data-gtm-listing-id="1459632278" itemscope="" itemprop="offers" itemtype="#" style="cursor: pointer;">
-                       <td class="td-localidad tabel_1">
-                          <span class="info-icons pull-right">
-                          </span>
-                          <span class="tit-evento">Category 4</span>
-                          <span class="posicion">
-                          <span class="asiento" data-qa="ticket-row">Row: .</span>
-                          </span>
-                       </td>
-                       <td class="td-disponibles">
-                          2
-                       </td>
-                       <td class="td-precio hide-phone">
-                          <span class="hide-phone">
-                          <strong data-qa="ticket-list-price">AED17,220</strong>
-                          </span>
-                          <span data-qa="ticket-list-finalprice" class="hide-phone">
-                          $4,688.30
-                          <br>
-                          </span>
-                       </td>
-                       <td class="td-comprar">
-                          <a href="#" target="_self" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
-                          <span class="only-phone">
-                          <span itemprop="price">AED17,220</span>
-                          </span>
-                          <span class="hide-phone">Buy</span>
-                          </a>
-                       </td>
-                    </tr>
-                    <tr class="entradaRow cat3" id="1460986941" data-qa="ticket-list-item" data-tipoentradaid="3923044" data-sector="" data-disponibles="2" data-instant-delivery="false" data-best-value="" data-details="" data-restrictions="" data-trust="i" data-btn-href="#" data-btn-target="_self" data-gtm-category="click" data-gtm-action="buy_ticket" data-gtm-label="event_listing" data-gtm-ticket-price="5567.65" data-gtm-quantity-filter="" data-gtm-listing-id="1460986941" itemscope="" itemprop="offers" itemtype="#" style="cursor: pointer;">
-                       <td class="td-localidad tabel_2">
-                          <span class="info-icons pull-right">
-                          </span>
-                          <span class="tit-evento">Category 3</span>
-                          <span class="posicion">
-                          <span class="asiento" data-qa="ticket-row">Row: 9</span>
-                          </span>
-                       </td>
-                       <td class="td-disponibles">
-                          2
-                       </td>
-                       <td class="td-precio hide-phone">
-                          <span class="hide-phone">
-                          <strong data-qa="ticket-list-price">AED17,225</strong>
-                          </span>
-                          <span data-qa="ticket-list-finalprice" class="hide-phone">
-                          $4,689.50
-                          <br>
-                          </span>
-                       </td>
-                       <td class="td-comprar">
-                          <a href="#" target="_self" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
-                          <span class="only-phone">
-                          <span itemprop="price">AED17,225</span>
-                          </span>
-                          <span class="hide-phone">Buy</span>
-                          </a>
-                       </td>
-                    </tr>
-                    <tr class="entradaRow cat3" id="1460998711" data-qa="ticket-list-item" data-tipoentradaid="3923044" data-sector="" data-disponibles="2" data-instant-delivery="false" data-best-value="" data-details="" data-restrictions="" data-trust="i" data-btn-href="#" data-btn-target="_self" data-gtm-category="click" data-gtm-action="buy_ticket" data-gtm-label="event_listing" data-gtm-ticket-price="5710.42" data-gtm-quantity-filter="" data-gtm-listing-id="1460998711" itemscope="" itemprop="offers" itemtype="#" style="cursor: pointer;">
-                       <td class="td-localidad tabel_2">
-                          <span class="info-icons pull-right">
-                          </span>
-                          <span class="tit-evento">Category 3</span>
-                          <span class="posicion">
-                          <span class="asiento" data-qa="ticket-row">Row: 1</span>
-                          </span>
-                       </td>
-                       <td class="td-disponibles">
-                          2
-                       </td>
-                       <td class="td-precio hide-phone">
-                          <span class="hide-phone">
-                          <strong data-qa="ticket-list-price">AED17,666</strong>
-                          </span>
-                          <span data-qa="ticket-list-finalprice" class="hide-phone">
-                          $4,809.74
-                          <br>
-                          </span>
-                       </td>
-                       <td class="td-comprar">
-                          <a href="#" target="_self" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
-                          <span class="only-phone">
-                          <span itemprop="price">AED17,666</span>
-                          </span>
-                          <span class="hide-phone">Buy</span>
-                          </a>
-                       </td>
-                    </tr>
-                    <tr class="entradaRow cat3" id="1460780163" data-qa="ticket-list-item" data-tipoentradaid="3923044" data-sector="" data-disponibles="2" data-instant-delivery="false" data-best-value="" data-details="" data-restrictions="" data-trust="i" data-btn-href="#" data-btn-target="_self" data-gtm-category="click" data-gtm-action="buy_ticket" data-gtm-label="event_listing" data-gtm-ticket-price="5957.83" data-gtm-quantity-filter="" data-gtm-listing-id="1460780163" itemscope="" itemprop="offers" itemtype="#" style="cursor: pointer;">
-                       <td class="td-localidad tabel_1">
-                          <span class="info-icons pull-right">
-                          </span>
-                          <span class="tit-evento">Category 3</span>
-                          <span class="posicion">
-                          <span class="asiento" data-qa="ticket-row">Row: .</span>
-                          </span>
-                       </td>
-                       <td class="td-disponibles">
-                          2
-                       </td>
-                       <td class="td-precio hide-phone">
-                          <span class="hide-phone">
-                          <strong data-qa="ticket-list-price">AED18,236</strong>
-                          </span>
-                          <span data-qa="ticket-list-finalprice" class="hide-phone">
-                          $4,964.86
-                          <br>
-                          </span>
-                       </td>
-                       <td class="td-comprar">
-                          <a href="#" target="_self" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
-                          <span class="only-phone">
-                          <span itemprop="price">AED18,236</span>
-                          </span>
-                          <span class="hide-phone">Buy</span>
-                          </a>
-                       </td>
-                    </tr>
-                    <tr class="entradaRow cat4" id="1460187359" data-qa="ticket-list-item" data-tipoentradaid="3923048" data-sector="" data-disponibles="1" data-instant-delivery="false" data-best-value="" data-details="" data-restrictions="" data-trust="i" data-btn-href="#" data-btn-target="_self" data-gtm-category="click" data-gtm-action="buy_ticket" data-gtm-label="event_listing" data-gtm-ticket-price="6067.31" data-gtm-quantity-filter="" data-gtm-listing-id="1460187359" itemscope="" itemprop="offers" itemtype="#" style="cursor: pointer;">
-                       <td class="td-localidad tabel_2">
-                          <span class="info-icons pull-right">
-                          </span>
-                          <span class="tit-evento">Category 4</span>
-                          <span class="posicion">
-                          <span class="asiento" data-qa="ticket-row">Row: -</span>
-                          </span>
-                       </td>
-                       <td class="td-disponibles">
-                          1
-                       </td>
-                       <td class="td-precio hide-phone">
-                          <span class="hide-phone">
-                          <strong data-qa="ticket-list-price">AED18,770</strong>
-                          </span>
-                          <span data-qa="ticket-list-finalprice" class="hide-phone">
-                          $5,110.35
-                          <br>
-                          </span>
-                       </td>
-                       <td class="td-comprar">
-                          <a href="#" target="_self" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
-                          <span class="only-phone">
-                          <span itemprop="price">AED18,770</span>
-                          </span>
-                          <span class="hide-phone">Buy</span>
-                          </a>
-                       </td>
-                    </tr>
-                    <tr class="entradaRow cat4" id="1460034245" data-qa="ticket-list-item" data-tipoentradaid="3923048" data-sector="" data-disponibles="1" data-instant-delivery="false" data-best-value="" data-details="" data-restrictions="" data-trust="i" data-btn-href="#" data-btn-target="_self" data-gtm-category="click" data-gtm-action="buy_ticket" data-gtm-label="event_listing" data-gtm-ticket-price="6137.27" data-gtm-quantity-filter="" data-gtm-listing-id="1460034245" itemscope="" itemprop="offers" itemtype="#" style="cursor: pointer;">
-                       <td class="td-localidad tabel_3">
-                          <span class="info-icons pull-right">
-                          </span>
-                          <span class="tit-evento">Category 4</span>
-                          <span class="posicion">
-                          <span class="asiento" data-qa="ticket-row">Row: -</span>
-                          </span>
-                       </td>
-                       <td class="td-disponibles">
-                          1
-                       </td>
-                       <td class="td-precio hide-phone">
-                          <span class="hide-phone">
-                          <strong data-qa="ticket-list-price">AED18,987</strong>
-                          </span>
-                          <span data-qa="ticket-list-finalprice" class="hide-phone">
-                          $5,169.27
-                          <br>
-                          </span>
-                       </td>
-                       <td class="td-comprar">
-                          <a href="#" target="_self" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
-                          <span class="only-phone">
-                          <span itemprop="price">AED18,987</span>
-                          </span>
-                          <span class="hide-phone">Buy</span>
-                          </a>
-                       </td>
-                    </tr>
-
                  </tbody>
               </table>
 
@@ -546,101 +318,8 @@ $stmt->close();
 <!--About End-->
 
 
-<!--Testimonial Start-->
-
 
 <!--App Section-->
-
-<!--Blog Start-->
-<!-- <section id="team" class="bg-light">
-    <div class="container">
-      <div class="row">
-              <div class="col-md-12 text-left">
-                  <div class="title d-inline-block">
-                    <h2>Payment Method</h2>
-                  </div>
-              </div>
-          </div>
-
-
-        <div class="row align-items-center mb-5">
-            <div class="col-md-12">
-              <div class="col-md-5 pull-left">
-                <form>
-                <div class="form-group">
-                <input type="name" class="form-control" placeholder="Your Name*">
-                </div>
-                <div class="form-group">
-                <input type="email" class="form-control" placeholder="Your Email*">
-                </div>
-                <div class="form-group">
-                <input type="number" class="form-control" placeholder="Card Number*">
-                </div>
-                <div class="form-group">
-                <input type="name" class="form-control" placeholder="Name On Card*">
-                </div>
-                <div class="form-group pull-left col-md-5 no-padding">
-                  <select class="form-control" id="exampleFormControlSelect2">
-                  <option>Month</option>
-                  <option>January</option>
-                  <option>February</option>
-                  <option>March</option>
-                  <option>April</option>
-                  <option>May</option>
-                  <option>June</option>
-                  <option>July</option>
-                  <option>August</option>
-                  <option>September</option>
-                  <option>October</option>
-                  <option>November</option>
-                  <option>December</option>
-                </select>
-                </div>
-                <div class="form-group pull-right col-md-5 no-padding">
-                  <select class="form-control" id="exampleFormControlSelect2">
-                  <option>Year</option>
-                  <option>1992</option>
-                  <option>1993</option>
-                  <option>1994</option>
-                  <option>1995</option>
-                  <option>1996</option>
-                  <option>1997</option>
-                  <option>1998</option>
-                  <option>1999</option>
-                  <option>2000</option>
-                  <option>2001</option>
-                  <option>2002</option>
-                  <option>2003</option>
-                </select>
-                </div>
-
-                <div class="clearfix">
-
-                  <div class="form-group">
-                  <input type="number" class="form-control" placeholder="CCV*">
-                  </div>
-
-
-                </div>
-                <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-                <br>
-                <button type="submit" class="btn btn-primary">Book Tickets</button>
-                </form>
-              </div>
-
-              <div class="col-md-6 pull-right pa_tb">
-                <img src="img/payment.png" alt="payment">
-              </div>
-
-            </div>
-
-        </div>
-    </div>
-</section> -->
-<!--Blog End-->
 
 
 
@@ -702,31 +381,36 @@ $stmt->close();
 <!--Footer End-->
 
 <div id="popup_this" class="col-md-4 col-xs-12 top-border">
-  <span class="b-close">
-		<span>X</span>
-	</span>
-  <div class="bg_popup">
-    <h3 class="pop_up">Champions League 2019 Final</h3>
-    <span>Wanda Metropolitano</span>
-    <p><i class="fa fa-map-marker" aria-hidden="true"></i> Madrid</p>
-    <p><i class="fa fa-map-marker" aria-hidden="true"></i> 1 Jun 2019 - Sat 21:00</p>
-  </div>
-  <div class="pop_up_title">
-    <h3>How many tickets would you like?</h3>
-    <span>These will be adjoining tickets</span>
-    <div class="table_number">
-      <ul>
-        <li><a href="#about">1</a></li>
-        <li><a href="#about">2</a></li>
-        <li><a href="#about">3</a></li>
-      </ul>
-      <ul>
-        <li><a href="#about">4</a></li>
-        <li><a href="#about">5</a></li>
-        <li><a href="#about">6</a></li>
-      </ul>
+    <span class="b-close">
+		  <span>X</span>
+	  </span>
+    <?php 
+    $events = getEventList();
+    foreach($events as $evid => $evdetails){
+    ?>
+    <div class="bg_popup">
+      <h3 class="pop_up"><?=$evdetails['eventname']?></h3>
+      <span><?=$evdetails['groundname']?></span>
+        <p><i class="fa fa-map-marker" aria-hidden="true"></i> <?=$evdetails['address']?></p>
+        <p><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo date('d-m-Y h:i a',strtotime($evdetails['date'].' '.$evdetails['time'])); ?></p>
     </div>
+    <div class="pop_up_title">
+      <h3>How many tickets would you like?</h3>
+      <span>These will be adjoining tickets</span>
+      <div class="table_number">
+        <ul>
+          <li><a href="javascript:void(0)">1</a></li>
+          <li><a href="javascript:void(0)">2</a></li>
+          <li><a href="javascript:void(0)">3</a></li>
+        </ul>
+        <ul>
+          <li><a href="javascript:void(0)">4</a></li>
+          <li><a href="javascript:void(0)">5</a></li>
+          <li><a href="javascript:void(0)">6</a></li>
+        </ul>
+      </div>
   </div>
+    <?php } ?>
 </div>
 
 
@@ -746,75 +430,4 @@ $stmt->close();
   <a href="https://api.whatsapp.com/send?phone=447452306463&text=Hello..%20I'm%20Interesting%20of%20Ticketforus.%20Kindly%20Send%20us%20some%20information." target="_blank" class="whatsapp"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
 </div>
 
-
-<script type="text/javascript">var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date;!function(){var t=document.createElement("script"),e=document.getElementsByTagName("script")[0];t.async=!0,t.src="https://embed.tawk.to/5adcc9515f7cdf4f05337769/default",t.charset="UTF-8",t.setAttribute("crossorigin","*"),e.parentNode.insertBefore(t,e)}();</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119563351-1"></script>
-<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-119563351-1");</script>
-
-
-
-
-<!-- Style Customizer End -->
-
-<script src="js/jquery-2.1.4.min.js"></script>
-
-
-<script src="js/popper.min.js"></script>
-
-<!-- Optional JavaScript -->
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.appear.js"></script>
-<!-- isotop gallery -->
-<script src="js/isotope.pkgd.min.js"></script>
-<!-- cube portfolio gallery -->
-<script src="js/jquery.cubeportfolio.min.js"></script>
-<!-- owl carousel slider -->
-
-
-
-<script src="js/owl.carousel.min.js"></script>
-<!-- text rotate -->
-<script src="js/morphext.min.js"></script>
-<!-- particles -->
-<script src="js/particles.min.js"></script>
-<!-- parallax Background -->
-<script src="js/parallaxie.min.js"></script>
-<!-- fancybox popup -->
-<script src="js/jquery.fancybox.min.js"></script>
-<!-- wow animation -->
-<script src="js/wow.js"></script>
-<!-- tween max animation -->
-<script src="js/TweenMax.min.js"></script>
-<!-- REVOLUTION JS FILES -->
-<script src="js/jquery.themepunch.tools.min.js"></script>
-<script src="js/jquery.themepunch.revolution.min.js"></script>
-<!-- SLIDER REVOLUTION EXTENSIONS -->
-<script src="js/revolution.extension.actions.min.js"></script>
-<script src="js/revolution.extension.carousel.min.js"></script>
-<script src="js/revolution.extension.kenburn.min.js"></script>
-<script src="js/revolution.extension.layeranimation.min.js"></script>
-<script src="js/revolution.extension.migration.min.js"></script>
-<script src="js/revolution.extension.navigation.min.js"></script>
-<script src="js/revolution.extension.parallax.min.js"></script>
-<script src="js/revolution.extension.slideanims.min.js"></script>
-<!-- map -->
-<script src="js/map.js"></script>
-<!-- Color Switcher -->
-<script src="js/less.min.js" data-env="development"></script>
-<script src="js/style-customizer.js"></script>
-<!-- custom script -->
-<script src="js/jquery.bpopup.min.js"></script>
-
-<script src="js/script.js"></script>
-
-
-  <script>
-	$( document ).ready(function() {
-		$('#popup_this').bPopup();
-	});
-	</script>
-
-</body>
-
-</html>
+<?php include "footer.php"; ?>
