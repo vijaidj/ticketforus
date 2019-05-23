@@ -31,4 +31,34 @@ function getTicketList(){
     $stmt->close();
     return $ticketlist;
 }
+
+function getTicketInfo( $orderId ){
+    
+    global $con;
+    $stmt = $con->prepare("SELECT * FROM orders WHERE order_id = ?");
+    $stmt->bind_param("ii", $orderId);
+    $stmt->execute();
+    $orderInfo = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    
+    return $orderInfo;
+}
+
+function getSeatAvailablity(){
+    
+    global $con;
+    $stmt = $con->prepare("select r.id, b.quantity, r.quantity, (r.quantity - b.quantity) as result from orders as b, seatrow as r where b.seatrow_id = r.id");
+    $stmt->execute();
+    $data = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    
+    $res = [];
+    if(!empty($data)){
+        foreach($data as $info){
+            $res[$info['id']] = $info;
+        }
+    }
+    return $res;
+}
+
 ?>

@@ -1,7 +1,9 @@
 <?php
-require_once 'config.php';
+require_once 'controller/connect.php';
+require_once 'controller/functions.php';
+
 $orderId = 1;
-$data = getOrderInfo($orderId);
+$data = getTicketInfo( $orderId );
 
 $paypalConfig = [
     'email' => 'rajworldmoorthi-facilitator@gmail.com',
@@ -23,9 +25,8 @@ $city = $data['city'];
 $postcode = $data['zipcode'];
 
 $currency = 'USD';
-$quantity = 5;
+$quantity = $data['quantity'];
 $itemName = $data['quantity'].' Ticket';
-$shipping_price = $data['product_cost'];
 $invoice_id = $orderId;
 $total_order_price = $data['order_total'];
 ?>
@@ -46,7 +47,6 @@ $total_order_price = $data['order_total'];
     <input type="hidden" name="item_name" value="<?= $itemName; ?>" />
     <input type="hidden" name="custom" value="" />
 
-    <input type="hidden" name="shipping" value="<?= $shipping_price; ?>" />
     <input type="hidden" name="invoice" value="<?= $invoice_id ?>" />
     <input type="hidden" name="amount" value="<?= $total_order_price; ?>" />
     <input type="hidden" name="return" value="<?= $paypalConfig['return_url']; ?>"/>
