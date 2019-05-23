@@ -4454,3 +4454,84 @@ text-align: left;
     margin: 7px 7px;
     color: white;
 }
+.form_des{
+  background-color: #f2f2f2;
+  padding: 0 0 30px;
+  text-align: left;
+}
+.padding_20{
+  padding: 10.5rem 0;
+}
+.title_form {
+    background-color: #000000;
+    border-left: 3px solid #ed1c24;
+    padding: 10px 0 10px 10px;
+    text-align: left;
+}
+.title_form h4 {
+    color: #ed1c24;
+    font-weight: 400;
+    font-size: 18px;
+}
+.title_form span {
+    color: #f2f2f2;
+}
+.btn_submit{
+  background-color: #1ea51c !important;
+  border: 1px solid #1ea51c !important;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500 !important;
+  padding: 10px !important;
+}
+.secound_form .title_form {
+    background-color: #1ea51c;
+    border-left: 3px solid #000000;
+}
+.secound_form .title_form h4 {
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 18px;
+}
+.payGuarantee{
+  margin: 25px auto;
+}
+.secound_form ul li {
+    font-size: 15px;
+    font-weight: 400;
+    color: #696969;
+    border-bottom: 1px solid #ccc;
+    padding: 8px 0;
+}
+.secound_form ul li i.fa {
+    color: #1ea51c;
+    font-size: 17px;
+}
+.add_icons{
+
+}
+.secound_sa p {
+    font-weight: bold;
+    font-size: 13px;
+}
+.secound_sa p span{
+    font-weight: 500;
+    font-size: 13px;
+}
+.secound_sa{
+  padding: 11px 0 0;
+}
+.new_right{
+  font-weight: bold;
+    font-size: 13px;
+    padding: 0;
+}
+.new_left{
+    font-size: 13px;
+    padding: 0;
+}
+.first_list {
+    width: 100%;
+    float: left;
+    padding: 3px 0;
+}

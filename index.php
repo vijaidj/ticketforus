@@ -357,28 +357,6 @@ include 'controller/functions.php';
 </section>
 
 
-<!--Footer Start-->
-<section class="text-center pad_0">
-    <h2 class="d-none">hidden</h2>
-    <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <img src="img/logo.svg" alt="logo" class="logo-dark default">
-          </div>
-            <div class="col-md-12">
-                <div class="footer-social">
-                    <ul class="list-unstyled">
-                        <li><a class="wow fadeInUp" href="javascript:void(0);"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a class="wow fadeInDown" href="javascript:void(0);"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                        <li><a class="wow fadeInUp" href="javascript:void(0);"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                    </ul>
-                </div>
-                <p class="company-about fadeIn">© 2019 Ticket For Us. All Rights Reserved. </p>
-            </div>
-        </div>
-    </div>
-</section>
-<!--Footer End-->
 
 <div id="popup_this" class="col-md-4 col-xs-12 top-border">
     <span class="b-close">
@@ -414,20 +392,5 @@ include 'controller/functions.php';
 </div>
 
 
-
-<!--Scroll Top-->
-<a class="scroll-top-arrow" href="javascript:void(0);"><i class="fa fa-angle-up"></i></a>
-<!--Scroll Top End-->
-
-<!--Animated Cursor-->
-<div id="aimated-cursor">
-    <div id="cursor">
-        <div id="cursor-loader"></div>
-    </div>
-</div>
-
-<div class="icon-bar">
-  <a href="https://api.whatsapp.com/send?phone=447452306463&text=Hello..%20I'm%20Interesting%20of%20Ticketforus.%20Kindly%20Send%20us%20some%20information." target="_blank" class="whatsapp"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
-</div>
 
 <?php include "footer.php"; ?>

@@ -9,7 +9,7 @@ function getEventList(){
     $stmt = $con->prepare("SELECT e.id,e.name eventname,e.date,e.time,g.name groundname,g.address FROM event e INNER JOIN ground g ON e.ground_id = g.id WHERE e.date >= ? AND e.time >= ? AND e.status >= ?");
     $stmt->bind_param("ssi", $todaye, $current_time,$status);
     $stmt->execute();
-    $events = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $events = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
     $stmt->close();
     return $events;
 }
@@ -30,5 +30,42 @@ function getTicketList(){
     $ticketlist = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
     return $ticketlist;
+}
+function valVar($value){
+    return isset($value)?$value:'';
+}
+function getSeatrowDeatils($rowid=''){
+    $rowdetails = array();
+    if($rowid != ''){
+        global $con;
+        $status       = 1;        
+        $seatavailability = 1;        
+        $stmt = $con->prepare("SELECT price, quantity FROM seatrow WHERE id = ? AND seat_availability = ? AND status >= ?");
+        $stmt->bind_param("iii", $rowid, $seatavailability,$status);
+        $stmt->execute();
+        $rowdetails = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
+        $stmt->close();        
+    }
+    return $rowdetails;
+}
+function getAllInfo($rowid = ''){
+    $allInfo = [];
+    if($rowid != ''){
+        global $con;        
+        $status = 1;
+        $stmt = $con->prepare("SELECT e.name eventname,e.date,e.time,g.name groundname,g.address,c.name categoryname,s.id rowid,s.name rowname,s.price,s.quantity 
+        FROM event e INNER JOIN ground g
+            ON e.ground_id = g.id
+        INNER JOIN category c
+            ON c.ground_id = g.id
+        INNER JOIN seatrow s
+            ON s.category_id = c.id
+        WHERE s.id = ? AND s.status = ?");
+        $stmt->bind_param("ii", $rowid, $status);
+        $stmt->execute();
+        $allInfo = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
+        $stmt->close();
+    }
+    return $allInfo;
 }
 ?>
