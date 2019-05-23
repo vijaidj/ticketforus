@@ -16,7 +16,7 @@ $privacy_policy = valVar($_POST['privacy_policy']);
 $need_invoice = 1;
 
 //price info from row table
-$rowinfo = getSeatrowDeatils($prd_id);
+$rowinfo = getSeatrowDetails($prd_id);
 $product_cost = $rowinfo['price'];
 $order_total = ($prd_qty * $product_cost);
 $created_on = date('Y-m-d H:i:s');
