@@ -41,7 +41,7 @@
 include 'controller/connect.php';
 $ground_id = 1;
 $status = 1;
-$stmt = $con->prepare("SELECT * FROM categories WHERE ground_id = ? AND status = ?");
+$stmt = $con->prepare("SELECT * FROM category WHERE ground_id = ? AND status = ?");
 $stmt->bind_param("ii", $ground_id, $status);
 $stmt->execute();
 $categories = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
