@@ -20,10 +20,13 @@ $rowinfo = getSeatrowDetails($prd_id);
 $product_cost = $rowinfo['price'];
 $order_total = ($prd_qty * $product_cost);
 $created_on = date('Y-m-d H:i:s');
+$paid_amount = 0.00;
+$processing_fee = 0.00;
+$created_by = 0;
+$modified_by = 0;
 
-
-$stmt = $con->prepare("INSERT INTO orders (seatrow_id, event_id, quantity, need_invoice, product_cost, order_total, created_on, country, first_name, address, zipcode, city, province, phone_number, emailid ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("iiiiddsssssssss", $prd_id, $evt_id, $prd_qty, $need_invoice, $product_cost, $order_total, $created_on, $country, $firstname, $address, $zipcode, $city, $province, $phonenumber, $email);
+$stmt = $con->prepare("INSERT INTO orders (seatrow_id, event_id, quantity, need_invoice, product_cost, order_total, paid_amount, processing_fee, created_on, country, first_name, address, zipcode, city, province, phone_number, emailid, created_by, modified_by ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("iiiiddddsssssssssii", $prd_id, $evt_id, $prd_qty, $need_invoice, $product_cost, $order_total, $paid_amount, $processing_fee, $created_on, $country, $firstname, $address, $zipcode, $city, $province, $phonenumber, $email, $created_by, $modified_by);
 $stmt->execute();
 $orderid = $stmt->insert_id;
 $stmt->close();

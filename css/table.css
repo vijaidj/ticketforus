@@ -3144,14 +3144,14 @@ body.checkout .wrapper,body.publicacion .wrapper{padding-top:70px;margin-top:0}
 .categoriesList li a:hover .btn-vereventos:focus,.categoriesList li a:hover .btn-vereventos:active{border:1px solid #c23a77;background-color:#c23a77;color:#fff}
 .entradaRow .tit-evento{font-size:.9em}
 .entradaRow .posicion{margin-top:4px;color:#525252}
-.entradaRow .posicion .asiento{font-size:11px}
+.entradaRow .posicion .asiento { font-size: 12px; font-weight: 500;}
 .lst-tickets{background-color:#fff}
 .lst-tickets thead tr{background-color:#f6f8f9}
 .lst-tickets thead tr:hover{background-color:#f6f8f9}
 .lst-tickets tbody tr{border:1px solid #e7eaec}
 .lst-tickets tbody tr:hover .btn-success{background-color:#d94185;color:#fff}
 .lst-tickets tbody tr:last-child{border:1px solid #e7eaec}
-.lst-tickets td{padding:10px;display:table-cell}
+.lst-tickets td{padding:10px;display:table-cell;text-align: left}
 .lst-categories,.lst-events{border:1px solid #e7eaec;background-color:#fff;margin:5px;margin-bottom:20px}
 .lst-help{text-align:center;margin:10px;column-count:1}
 .lst-help li{display:inline-block}

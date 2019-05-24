@@ -4422,15 +4422,15 @@ text-align: left;
   color: #E91E63;
     font-weight: 400;
 }
-.pop_up_title h3{
-  padding: 10px 0;
-  text-align: center;
-  color: #36474f;
-  font-size: 18px;
-  line-height: 18px;
-  margin-bottom: 0;
-  font-weight: 300;
-  text-transform: none;
+.pop_up_title h3 {
+    padding: 10px 0;
+    text-align: center;
+    color: #36474f;
+    font-size: 15px;
+    line-height: 27px;
+    margin-bottom: 0;
+    font-weight: 300;
+    text-transform: none;
 }
 .pop_up_title span {
     display: block;
@@ -4534,4 +4534,22 @@ text-align: left;
     width: 100%;
     float: left;
     padding: 3px 0;
+}
+.fa_hot {
+    color: #de3984;
+    font-size: 13px;
+    font-weight: 500;
+        display: block;
+}
+.fa-fire_icon {
+    background: url(../img/fire.png) no-repeat;
+    height: 20px;
+    width: 24px;
+    background-size: 65%;
+    float: left;
+    position: relative;
+    top: 4px;
+}
+.pop_up_title {
+    padding: 11px 0;
 }
