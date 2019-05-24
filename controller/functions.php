@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-
 function getEventList(){
     global $con;
     $todaye       = date("Y-m-d");

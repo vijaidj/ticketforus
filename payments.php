@@ -6,7 +6,8 @@ $orderId = valVar($_POST['order_id']);
 $data = getTicketInfo( $orderId )[0];
 
 $paypalConfig = [
-    'email' => 'rajworldmoorthi-facilitator@gmail.com',
+    // 'email' => 'rajworldmoorthi-facilitator@gmail.com',
+    'email' => 'zerobeginners-seller@gmail.com',
     'return_url' => APP_URL.'/success.php',
     'cancel_url' => APP_URL,
     'notify_url' => APP_URL.'/notify.php'
