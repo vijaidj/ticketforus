@@ -84,7 +84,11 @@ function getTicketInfo( $orderId ){
 function getSeatAvailablity(){
     
     global $con;
-    $stmt = $con->prepare("select r.id, b.quantity, r.quantity, (r.quantity - sum(b.quantity)) as result from orders as b, seatrow as r where b.seatrow_id = r.id");
+    $stmt = $con->prepare(
+            "SELECT r.id as rowId, r.quantity as total, IFNULL(sum(b.quantity), 0) as booked, IFNULL( (r.quantity - sum(b.quantity)), 0) as result
+            FROM seatrow as r
+            LEFT JOIN orders as b ON r.id = b.seatrow_id
+            group BY r.id");
     $stmt->execute();
     $data = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
@@ -92,7 +96,7 @@ function getSeatAvailablity(){
     $res = [];
     if(!empty($data)){
         foreach($data as $info){
-            $res[$info['id']] = $info;
+            $res[$info['rowId']] = $info;
         }
     }
     return $res;
