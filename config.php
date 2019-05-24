@@ -6,6 +6,8 @@ define('APP_URL', 'http://localhost/ticketforus');
 define('EMAIL_USERNAME', '');
 define('EMAIL_ADDRESS', '');
 define('EMAIL_APSSWORD', '');
+define("ENCRYPTION_KEY", "vj!@#$%^&*");
+define("ENCRYPTION_IV", "vj!@#$%^&*");
 
 
 function sendMail( $to, $subject = '', $message = '') {

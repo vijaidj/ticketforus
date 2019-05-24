@@ -1,10 +1,15 @@
 <?php 
 include 'header.php';
+include 'config.php';
 include 'controller/functions.php';
 
-$evt_id = 1;
-$prd_id = 2;
-$prd_qty = 1;
+$booking_ref_enc = valVar($_REQUEST['booking_ref']);
+$refdetails = encrypt_decrypt('decrypt',$booking_ref_enc);
+$cartdetails = @explode('||',$refdetails);
+
+$evt_id = $cartdetails[0];
+$prd_id = $cartdetails[1];
+$prd_qty = valVar($_REQUEST['quantity']);
 
 $eventInfo_temp = getEventList($evt_id);
 $eventInfo = $eventInfo_temp[0];
@@ -96,7 +101,7 @@ $order_cost = ($prd_qty * $product_cost);
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <form class="form_des">
+        <form class="form_des" action='payments.php' method="POST">
           <div class="title_form">
             <h4>SHIPPING ADDRESS</h4>
             <span>Please fill your shipping address</span>
@@ -116,6 +121,7 @@ $order_cost = ($prd_qty * $product_cost);
         <input type="hidden" name="evt_id" id="evt_id"  class="form-control" value="<?=$evt_id?>">
         <input type="hidden" name="prd_id" id="prd_id"  class="form-control" value="<?=$prd_id?>">
         <input type="hidden" name="prd_qty" id="prd_qty"  class="form-control" value="<?=$prd_qty?>">
+        <input type="hidden" name="order_id" id="order_id"  class="form-control" value="">
         <div class="col-md-6 pull-left">
           <div class="form-group">
             <label for="cus_firstname">Name</label>

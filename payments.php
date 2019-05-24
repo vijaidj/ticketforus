@@ -2,7 +2,7 @@
 require_once 'config.php';
 require_once 'controller/functions.php';
 
-$orderId = 2;
+$orderId = valVar($_POST['order_id']);
 $data = getTicketInfo( $orderId )[0];
 
 $paypalConfig = [

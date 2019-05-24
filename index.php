@@ -1,7 +1,9 @@
 <?php
 include 'header.php';
-include 'controller/connect.php';
+include 'config.php';
 include 'controller/functions.php';
+error_reporting(E_ALL);
+$event_id = 1;
 ?>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="90">
@@ -267,10 +269,12 @@ include 'controller/functions.php';
                     </tr>
                  </thead>
                  <tbody>
-                     <?php
-                     $categories = getTicketList();
+                     <?php                     
+                     $categories = getTicketList($event_id);                     
                      $seats = getSeatAvailablity();
                      foreach($categories as $key => $val){
+                        $ref = $event_id.'||'.$val['rowid'];
+                        $booking_ref = encrypt_decrypt('encrypt', $ref);
                          echo '<tr class="entradaRow cat4" id="1459632278" data-qa="ticket-list-item" data-tipoentradaid="3923048" data-sector="" data-disponibles="2" data-instant-delivery="false" data-best-value="" data-details="" data-restrictions="" data-trust="i" data-btn-href="#" data-btn-target="_self" data-gtm-category="click" data-gtm-action="buy_ticket" data-gtm-label="event_listing" data-gtm-ticket-price="5625.96" data-gtm-quantity-filter="" data-gtm-listing-id="1459632278" itemscope="" itemprop="offers" itemtype="#" style="cursor: pointer;">
                          <td class="td-localidad tabel_1">
                             <span class="info-icons pull-right">
@@ -286,6 +290,7 @@ include 'controller/functions.php';
                               echo '<option value="'.$st.'">'.$st.'</option>';
                             }
                             echo '</select> of '.$seats[$val['rowid']]['result'];
+
                          echo '</td>
                          <td class="td-precio hide-phone">
                             <span class="hide-phone">
@@ -297,12 +302,12 @@ include 'controller/functions.php';
                             </span>
                          </td>
                          <td class="td-comprar">
-                            <a href="javascript:void(0)" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
+                            <span href="javascript:void(0)" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
                             <span class="only-phone">
                             <span itemprop="price">'.$val['price'].'</span>
                             </span>
-                            <span class="hide-phone buythis" prd="'.$val['rowid'].'">Buy</span>
-                            </a>
+                            <a href="'.APP_URL.'/shipping.php?booking_ref='.$booking_ref.'" class="hide-phone buythis" prd="'.$val['rowid'].'">Buy</a>
+                            </span>
                          </td>
                       </tr>';
                      }

@@ -146,13 +146,22 @@ $( document ).ready(function() {
             data: form_info,
             // data: { "country": country, "firstname": firstname, "address": address, "zipcode": zipcode, "city": city, "province": province, "phonenumber": phonenumber, "email": email, "privacy_policy": privacy_policy },
             type: 'POST',
-            success: function (data) {
-                Success = true;//doesnt goes here
+            success: function (data) {                
+                $('#order_id').val(data['orderid']);
+                $( "form:first" ).submit();
             },
             error: function (textStatus, errorThrown) {
                 Success = false;//doesnt goes here
             }
         });
+    });
+
+    //$('#seat_qty_1').parent().siblings('.td-comprar').find('a').attr('href');
+    
+    $(document).on('change', "[id^=seat_qty_]", function(e){
+        var quantity = $('option:selected',this).val();        
+        var curUrl = $(this).parent().siblings('.td-comprar').find('a').attr('href');
+        $(this).parent().siblings('.td-comprar').find('a').attr("href", curUrl+'&quantity='+quantity);
     });
 
         //('#my-form').submit( processForm );

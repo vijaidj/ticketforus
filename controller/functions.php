@@ -13,9 +13,9 @@ function getEventList(){
     $stmt->close();
     return $events;
 }
-function getTicketList(){
+function getTicketList($eve_id=''){
     global $con;
-    $event_id = 1;
+    // $event_id = 1;
     $status = 1;
     $stmt = $con->prepare("SELECT e.name eventname,e.date,e.time,g.name groundname,g.address,c.name categoryname,s.id rowid,s.name rowname,s.price,s.quantity 
     FROM event e INNER JOIN ground g
@@ -25,7 +25,7 @@ function getTicketList(){
     INNER JOIN seatrow s
         ON s.category_id = c.id
      WHERE e.id = ? AND e.status = ?");
-    $stmt->bind_param("ii", $event_id, $status);
+    $stmt->bind_param("ii", $eve_id, $status);
     $stmt->execute();
     $ticketlist = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
@@ -97,5 +97,22 @@ function getSeatAvailablity(){
     }
     return $res;
 }
-
+function encrypt_decrypt($action, $string) {
+    $output = false;
+    $encrypt_method = "AES-256-CBC";
+    $secret_key = ENCRYPTION_KEY;
+    $secret_iv = ENCRYPTION_IV;
+    // hash
+    $key = hash('sha256', $secret_key);
+    
+    // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+    $iv = substr(hash('sha256', $secret_iv), 0, 16);
+    if ( $action == 'encrypt' ) {
+        $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+        $output = base64_encode($output);
+    } else if( $action == 'decrypt' ) {
+        $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+    }
+    return $output;
+}
 ?>
