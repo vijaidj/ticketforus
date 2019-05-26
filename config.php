@@ -3,55 +3,37 @@
 require_once 'PHPMailer/PHPMailerAutoload.php';
 
 define('APP_URL', 'http://localhost/ticketforus');
-define('EMAIL_USERNAME', '');
-define('EMAIL_ADDRESS', '');
-define('EMAIL_APSSWORD', '');
+define('EMAIL_USERNAME', 'Rajkumar');
+define('EMAIL_ADDRESS', 'rajworldmoorthi@gmail.com');
+define('EMAIL_PASSWORD', 'findme@1991');
 define("ENCRYPTION_KEY", "vj!@#$%^&*");
 define("ENCRYPTION_IV", "vj!@#$%^&*");
 
 
 function sendMail( $to, $subject = '', $message = '') {
+	$mail = new PHPMailer(); // create a new object
+	$mail->IsSMTP(); // enable SMTP
+	$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+	$mail->SMTPAuth = true; // authentication enabled
+	$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+	$mail->Host = "smtp.gmail.com";
+	$mail->Port = 465; // or  465
+	$mail->IsHTML(true);
+	$mail->Username = EMAIL_ADDRESS;
+	$mail->Password = EMAIL_PASSWORD;
+	$mail->SetFrom(EMAIL_ADDRESS);
+	$mail->Subject = $subject;
+	$mail->Body = $message;
+	// $mail->AddAddress($to);
+	$to_addr = explode(',', $to);
+	foreach ($to_addr as $addr) {
+		$mail->addAddress($addr);
+	}
 
-        
-        $mail = new PHPMailer;
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; 
-        $mail->SMTPAuth = true;
-         
-        $mail->Username = EMAIL_USERNAME;
-        $mail->Password = EMAIL_APSSWORD;
-        $mail->From = EMAIL_ADDRESS;
-//      $mail->FromName = '';
-//      $replyto = '';
-//      $replytonam = '';       
-        // Local
-        // $mail->SMTPOptions = array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true));
-        $mail->SMTPSecure = 'tls';
-        //$mail->SMTPDebug = 2;
-        //$mail->AddReplyTo($replyto, $replytoname);
-
-        /*
-        $cc_addr = '';
-        if ($cc_addr) {
-            $cc_addr = explode(',', $cc_addr);
-            foreach ($cc_addr as $cc) {
-                $mail->addCC($cc);
-            }
-        } */
-
-        $to_addr = explode(',', $to);
-        foreach ($to_addr as $addr) {
-            $mail->addAddress($addr);
-        }
-
-        $mail->isHTML(true);
-        $mail->Subject = $subject;
-        $mail->Body = $message;
-
-        if ($mail->send()) {
-            return 1;
-        }  else {
-            return 0;
-        }
+	 if(!$mail->Send()) {
+		return 0;
+	 } else {
+		return 1;
+	 }
         
     }

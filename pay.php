@@ -1,4 +1,4 @@
-<form action="http://localhost/ticketforus/stripe-payment.php" method="POST">
+<form action="<?php echo APP_URL?>/stripe-payment.php" method="POST">
   <script
     src="https://checkout.stripe.com/checkout.js"
     class="stripe-button"

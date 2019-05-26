@@ -1,9 +1,11 @@
 <?php 
+$booking_ref_enc = isset($_REQUEST['booking_ref'])?$_REQUEST['booking_ref']:'';
+if($booking_ref_enc != ''){
 include 'header.php';
 include 'config.php';
 include 'controller/functions.php';
 
-$booking_ref_enc = valVar($_REQUEST['booking_ref']);
+
 $refdetails = encrypt_decrypt('decrypt',$booking_ref_enc);
 $cartdetails = @explode('||',$refdetails);
 
@@ -110,7 +112,8 @@ $order_cost = ($prd_qty * $product_cost);
         <div class="col-md-6 pull-left">
           <div class="form-group">
             <label for="cus_country">Select Country</label>
-            <select class="form-control" name="cus_country" id="cus_country">
+            <select class="form-control" required name="cus_country" id="cus_country">
+              <option value="">Select country</option>
               <option value="Spain">Spain</option>
               <option value="Spain">Spain</option>
               <option value="Spain">Spain</option>
@@ -125,48 +128,48 @@ $order_cost = ($prd_qty * $product_cost);
         <div class="col-md-6 pull-left">
           <div class="form-group">
             <label for="cus_firstname">Name</label>
-            <input type="text" name="cus_firstname" id="cus_firstname"  class="form-control" placeholder="Name">
+            <input type="text" name="cus_firstname" id="cus_firstname"  class="form-control" required placeholder="Name">
           </div>
         </div>
         <div class="col-md-12 pull-left">
           <div class="form-group">
             <label for="cus_address">Address</label>
-            <input type="text" name="cus_address" id="cus_address" class="form-control" placeholder="Address">
+            <input type="text" name="cus_address" id="cus_address" class="form-control" required placeholder="Address">
           </div>
         </div>
         <div class="col-md-6 pull-left">
           <div class="form-group">
             <label for="cus_zipcode">Zip Code</label>
-            <input type="text" name="cus_zipcode" id="cus_zipcode" class="form-control" placeholder="Zip Code">
+            <input type="text" name="cus_zipcode" id="cus_zipcode" class="form-control" required placeholder="Zip Code">
           </div>
         </div>
         <div class="col-md-6 pull-left">
           <div class="form-group">
             <label for="cus_city">City / Town</label>
-            <input type="text" name="cus_city" id="cus_city" class="form-control" placeholder="City / Town">
+            <input type="text" name="cus_city" id="cus_city" class="form-control" required placeholder="City / Town">
           </div>
         </div>
         <div class="col-md-12 pull-left">
           <div class="form-group">
             <label for="cus_province">Province</label>
-            <input type="text" name="cus_province" id="cus_province" class="form-control" placeholder="Province">
+            <input type="text" name="cus_province" id="cus_province" class="form-control" required placeholder="Province">
           </div>
         </div>
         <div class="col-md-6 pull-left">
           <div class="form-group">
             <label for="cus_phonenumber">Phone Number</label>
-            <input type="text" name="cus_phonenumber" id="cus_phonenumber" class="form-control" placeholder="xxx x xxx xxxx">
+            <input type="text" name="cus_phonenumber" id="cus_phonenumber" class="form-control" required placeholder="xxx x xxx xxxx">
           </div>
         </div>
         <div class="col-md-6 pull-left">
           <div class="form-group">
             <label for="cus_email">Your Email</label>
-            <input type="text" name="cus_email" id="cus_email" class="form-control" placeholder="Enter your Email">
+            <input type="text" name="cus_email" id="cus_email" class="form-control" required placeholder="Enter your Email">
           </div>
         </div>
         <div class="col-md-12 pull-left">
           <div class="form-group">
-            <input type='checkbox' name="privacy_policy" id="privacy_policy">
+            <input type='checkbox' name="privacy_policy" required id="privacy_policy">
             <label for="privacy_policy">I agree to <a href="javascript:void(0)" target="_blank">Terms and Conditions</a> / <a href="javascript:void(0)" target="_blank">Privacy Policy</a> *</label>
           </div>
         </div>
@@ -256,4 +259,7 @@ $order_cost = ($prd_qty * $product_cost);
 
 <?php 
 include 'footer.php';
+}else{
+	header('Location: https://zerobeginners.com');
+}
 ?>

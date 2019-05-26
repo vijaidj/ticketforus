@@ -23,7 +23,7 @@ $event_id = 1;
     <!--Navigation-->
     <nav class="navbar navbar-top-default navbar-expand-lg navbar-gradient nav-icon">
         <div class="container">
-            <a href="javascript:void(0)" title="Logo" class="logo link scroll">
+            <a href="<?=APP_URL?>" title="Logo" class="logo link scroll1">
                 <!--Logo Default-->
                 <img src="img/logo.svg" alt="logo" class="logo-dark default">
             </a>
@@ -276,7 +276,7 @@ $event_id = 1;
                         $ref = $event_id.'||'.$val['rowid'];
                         $booking_ref = encrypt_decrypt('encrypt', $ref);
                          echo '<tr class="entradaRow cat4" id="1459632278" data-qa="ticket-list-item" data-tipoentradaid="3923048" data-sector="" data-disponibles="2" data-instant-delivery="false" data-best-value="" data-details="" data-restrictions="" data-trust="i" data-btn-href="#" data-btn-target="_self" data-gtm-category="click" data-gtm-action="buy_ticket" data-gtm-label="event_listing" data-gtm-ticket-price="5625.96" data-gtm-quantity-filter="" data-gtm-listing-id="1459632278" itemscope="" itemprop="offers" itemtype="#" style="cursor: pointer;">
-                         <td class="td-localidad tabel_1">
+                         <td class="td-localidad tabel_'.$val['rowid'].'">
                             <span class="info-icons pull-right">
                             </span>
                             <span class="tit-evento">'.$val['categoryname'].'</span>
@@ -286,7 +286,7 @@ $event_id = 1;
 
                               <span class="posicion">
                               <span class="asiento" data-qa="ticket-row">Row: 1</span>
-                               <span class="fa_hot"><i class="fa fa-fire_icon"></i> Remaining !</span>
+                               <span class="fa_hot"><i class="fa fa-fire_icon"></i> Filling fast !</span>
                             </span>
                               
                          </td>
@@ -301,7 +301,7 @@ $event_id = 1;
                          echo '</td>
                          <td class="td-precio hide-phone">
                             <span class="hide-phone">
-                            <strong data-qa="ticket-list-price"><data>&#163;</data>'.$val['price'].'</strong>
+                            <strong data-qa="ticket-list-price"><data>&euro;</data>'.$val['price'].'</strong>
                             </span>
                             <!--<span data-qa="ticket-list-finalprice" class="hide-phone">
                             '.$val['price'].'
@@ -309,12 +309,12 @@ $event_id = 1;
                             </span>-->
                          </td>
                          <td class="td-comprar">
-                            <span href="javascript:void(0)" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
+                            <a href="'.APP_URL.'/shipping.php?booking_ref='.$booking_ref.'&quantity=1" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
                             <span class="only-phone">
-                            <span itemprop="price">'.$val['price'].'</span>
+                            <span itemprop="price"><data>&euro;</data> '.$val['price'].'</span>
                             </span>
-                            <a href="'.APP_URL.'/shipping.php?booking_ref='.$booking_ref.'&quantity=1" class="hide-phone buythis" prd="'.$val['rowid'].'">Buy</a>
-                            </span>
+                            <span class="hide-phone buythis" prd="'.$val['rowid'].'">Buy</span>
+                            </a>
                          </td>
                       </tr>';
                      }
@@ -370,7 +370,7 @@ $event_id = 1;
 </section>
 
 
-
+<?php /*?>
 <div id="popup_this" class="col-md-4 col-xs-12 top-border">
     <span class="b-close">
 		  <span>X</span>
@@ -388,11 +388,21 @@ $event_id = 1;
     <div class="pop_up_title">
     <h3>How many tickets would you like?</h3>
     <span>Click Buy Tickets</span>
-    <button id="about" type="submit" class="btn btn-primary">Buy Tickets</button>
+    <button id="buy_tkt" type="button" class="btn btn-primary">Buy Tickets</button>
   </div>
     <?php } ?>
 </div>
+<?php */?>
 
-
+<form action="<?php echo APP_URL?>/stripe-payment.php" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js"
+    data-key="pk_test_wosNc22PGHfCAjfT9UJTawqT00NnmVJayT"
+    data-name="2 Tickets"
+    data-description="Ticket for US"
+    data-amount="50.00"
+    data-currency="EUR">
+  </script>
+</form>
 
 <?php include "footer.php"; ?>

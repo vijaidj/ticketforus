@@ -118,4 +118,14 @@ function encrypt_decrypt($action, $string) {
     }
     return $output;
 }
+function getEventListByID($evt_id){
+    global $con;
+    
+    $stmt = $con->prepare("SELECT e.id,e.name eventname,e.date,e.time,g.name groundname,g.address FROM event e INNER JOIN ground g ON e.ground_id = g.id WHERE e.id >= ?");
+    $stmt->bind_param("i", $evt_id);
+    $stmt->execute();
+    $events = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
+    $stmt->close();
+    return $events;
+}
 ?>

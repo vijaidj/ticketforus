@@ -1,4 +1,9 @@
 <?php
+// include "../config.php";
+// echo '<pre>';
+// print_r(sendMail('rajmoorthy91@gmail.com','test','demo'));
+// exit;
+
 include "functions.php";
 //customer requirment
 $evt_id = valVar($_POST['evt_id']);
@@ -31,6 +36,9 @@ $stmt->execute();
 $orderid = $stmt->insert_id;
 $stmt->close();
 $con->close();
+if($orderid > 0){
+	
+}
 die(json_encode(array('orderid' => $orderid)));
 
 ?>

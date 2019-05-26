@@ -36,7 +36,7 @@
         <div id="cursor-loader"></div>
     </div>
 </div>
-
+<?php /*
 <div class="icon-bar">
   <a href="https://api.whatsapp.com/send?phone=447452306463&text=Hello..%20I'm%20Interesting%20of%20Ticketforus.%20Kindly%20Send%20us%20some%20information." target="_blank" class="whatsapp"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
 </div>
@@ -44,7 +44,7 @@
 <script type="text/javascript">var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date;!function(){var t=document.createElement("script"),e=document.getElementsByTagName("script")[0];t.async=!0,t.src="https://embed.tawk.to/5adcc9515f7cdf4f05337769/default",t.charset="UTF-8",t.setAttribute("crossorigin","*"),e.parentNode.insertBefore(t,e)}();</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119563351-1"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-119563351-1");</script>
-
+ */ ?>
 
 
 
@@ -105,39 +105,135 @@
 
 <script>
 $( document ).ready(function() {
-    $('#popup_this').bPopup();
+    //$('#popup_this').bPopup();
 });
-
+$('#cus_phonenumber').on('input', function (event) { 
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
   (function($){
-      $(document).on('click', ".btn_submit", function(e){
-        var country = $('#cus_country option:selected').val();
-        var evt_id = $('#evt_id').val();
-        var prd_id = $('#prd_id').val();
-        var prd_qty = $('#prd_qty').val();
-        var firstname = $('#cus_firstname').val();
-        var address = $('#cus_address').val();
-        var zipcode = $('#cus_zipcode').val();
-        var city = $('#cus_city').val();
-        var province = $('#cus_province').val();
-        var phonenumber = $('#cus_phonenumber').val();
-        var email = $('#cus_email').val();
-        var privacy_policy = ($('#privacy_policy').is(':checked'))?1:0;
-        
-        
-        var form_info = new FormData();
-        form_info.append('evt_id', evt_id);
-        form_info.append('prd_id', prd_id);
-        form_info.append('prd_qty', prd_qty);
-        form_info.append('country', country);
-        form_info.append('firstname', firstname);
-        form_info.append('address', address);
-        form_info.append('zipcode', zipcode);
-        form_info.append('city', city);
-        form_info.append('province', province);
-        form_info.append('phonenumber', phonenumber);
-        form_info.append('email', email);
-        form_info.append('privacy_policy', privacy_policy);
-
+		$(document).on('click', ".btn_submit", function(e){
+			var reg             = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+			 
+			var country = $('#cus_country option:selected').val();
+			var evt_id = $('#evt_id').val();
+			var prd_id = $('#prd_id').val();
+			var prd_qty = $('#prd_qty').val();
+			var firstname = $('#cus_firstname').val();
+			var address = $('#cus_address').val();
+			var zipcode = $('#cus_zipcode').val();
+			var city = $('#cus_city').val();
+			var province = $('#cus_province').val();
+			var phonenumber = $('#cus_phonenumber').val();
+			var email = $('#cus_email').val();
+			var privacy_policy = ($('#privacy_policy').is(':checked'))?1:0;
+			
+			
+			var form_info = new FormData();
+			form_info.append('evt_id', evt_id);
+			form_info.append('prd_id', prd_id);
+			form_info.append('prd_qty', prd_qty);
+			form_info.append('country', country);
+			form_info.append('firstname', firstname);
+			form_info.append('address', address);
+			form_info.append('zipcode', zipcode);
+			form_info.append('city', city);
+			form_info.append('province', province);
+			form_info.append('phonenumber', phonenumber);
+			form_info.append('email', email);
+			form_info.append('privacy_policy', privacy_policy);
+		
+		
+		if(country == ''){
+			$('#cus_country').tooltip({title: "Country required!"});
+			$('#cus_country').focus();
+			$('#cus_country').change(function () {
+				$('#cus_country').tooltip('dispose');
+			});
+			return false;
+		}
+		if(firstname == ''){
+			$('#cus_firstname').tooltip({title: "Name required!"});
+			$('#cus_firstname').focus();
+			$('#cus_firstname').keypress(function () {
+				$('#cus_firstname').tooltip('dispose');
+			});
+			return false;
+		}
+		if(address == ''){
+			$('#cus_address').tooltip({title: "Address required!"});
+			$('#cus_address').focus();
+			$('#cus_address').keypress(function () {
+				$('#cus_address').tooltip('dispose');
+			});
+			return false;
+		}
+		if(zipcode == ''){
+			$('#cus_zipcode').tooltip({title: "Zipcode required!"});
+			$('#cus_zipcode').focus();
+			$('#cus_zipcode').keypress(function () {
+				$('#cus_zipcode').tooltip('dispose');
+			});
+			return false;
+		}
+		if(city == ''){
+			$('#cus_city').tooltip({title: "City required!"});
+			$('#cus_city').focus();
+			$('#cus_city').keypress(function () {
+				$('#cus_city').tooltip('dispose');
+			});
+			return false;
+		}
+		if(province == ''){
+			$('#cus_province').tooltip({title: "Province required!"});
+			$('#cus_province').focus();
+			$('#cus_province').keypress(function () {
+				$('#cus_province').tooltip('dispose');
+			});
+			return false;
+		}
+		if(phonenumber == ''){
+			$('#cus_phonenumber').tooltip({title: "Phone number required!"});
+			$('#cus_phonenumber').focus();
+			$('#cus_phonenumber').keypress(function () {
+				$('#cus_phonenumber').tooltip('dispose');
+			});
+			return false;
+		}
+		
+		if(phonenumber.length == 0) {
+			$('#cus_phonenumber').tooltip({title: "Phone number invalid!"});
+			$('#cus_phonenumber').focus();
+			$('#cus_phonenumber').keypress(function () {
+				$('#cus_phonenumber').tooltip('dispose');
+			});
+			return false;
+		}
+		         
+		if(email == ''){
+			$('#cus_email').tooltip({title: "Emailid required!"});
+			$('#cus_email').focus();
+			$('#cus_email').keypress(function () {
+				$('#cus_email').tooltip('dispose');
+			});
+			return false;
+		}
+		
+		if(email.trim() != '' && (reg.test(email.trim()) == false)) {
+			$('#cus_email').tooltip({title: "Emailid invalid!"});
+			$('#cus_email').focus();
+			$('#cus_email').keypress(function () {
+				$('#cus_email').tooltip('dispose');
+			});
+			return false;
+		}
+		if(privacy_policy == 0) {
+			$('#privacy_policy').tooltip({title: "Please check terms and conditions!"});
+			$('#privacy_policy').focus();
+			$('#privacy_policy').click(function () {
+				$('#privacy_policy').tooltip('dispose');
+			});
+			return false;
+		}
         $.ajax({
             url: 'controller/bookticket.php',
             dataType: 'json',  // what to expect back from the PHP script, if anything
@@ -161,12 +257,23 @@ $( document ).ready(function() {
     $(document).on('change', "[id^=seat_qty_]", function(e){
         var quantity = $('option:selected',this).val();        
         var curUrl = $(this).parent().siblings('.td-comprar').find('a').attr('href');
-        $(this).parent().siblings('.td-comprar').find('a').attr("href", curUrl+'&quantity='+quantity);
+		var arr = curUrl.split('&');
+        $(this).parent().siblings('.td-comprar').find('a').attr("href", arr[0]+'&quantity='+quantity);
+    });
+    
+    $(document).on('click', "#buy_tkt", function(e){
+        $('.b-close').click();
+        $('#about').focus();
     });
 
         //('#my-form').submit( processForm );
     })(jQuery);
        
+	   
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip(); 
+});
+
 </script>
 
 </body>

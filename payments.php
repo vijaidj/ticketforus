@@ -7,13 +7,13 @@ $data = getTicketInfo( $orderId )[0];
 
 $paypalConfig = [
     // 'email' => 'rajworldmoorthi-facilitator@gmail.com',
-    'email' => 'zerobeginners-seller@gmail.com',
-    'return_url' => APP_URL.'success.php',
+    'email' => 'ticketforus5@gmail.com',
+    'return_url' => APP_URL.'/success.php',
     'cancel_url' => APP_URL,
-    'notify_url' => APP_URL.'notify.php'
+    'notify_url' => APP_URL.'/notify.php'
 ];
 
-$enableSandbox = true;
+$enableSandbox = false;
 $paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
 
 $businessName = 'TicketForUs';
@@ -25,7 +25,7 @@ $address2 = '';
 $city = $data['city'];
 $postcode = $data['zipcode'];
 
-$currency = 'USD';
+$currency = 'EUR';
 $quantity = $data['quantity'];
 $itemName = $data['quantity'].' Ticket';
 $invoice_id = $orderId;
@@ -33,6 +33,9 @@ $total_order_price = $data['order_total'];
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <form action="<?= $paypalUrl; ?>" method="post" id="paypal_form">
+	<input name="exp" type="hidden" value="guest" />
+	<input name="SOLUTIONTYPE" type="hidden" value="Sole" />
+	<input name="LANDINGPAGE" type="hidden" value="Billing" />
     <input type="hidden" name="cmd" value="_xclick">
     <input type="hidden" name="first_name" value="<?= $firstname;?>">
     <input type="hidden" name="last_name" value="<?= $lastname;?>">
@@ -47,7 +50,7 @@ $total_order_price = $data['order_total'];
     <input type="hidden" name="quantity" value="<?= $quantity; ?>" />
     <input type="hidden" name="item_name" value="<?= $itemName; ?>" />
     <input type="hidden" name="custom" value="" />
-
+	<input type="hidden" value="2" name="rm">
     <input type="hidden" name="invoice" value="<?= $invoice_id ?>" />
     <input type="hidden" name="amount" value="<?= $total_order_price; ?>" />
     <input type="hidden" name="return" value="<?= $paypalConfig['return_url']; ?>"/>

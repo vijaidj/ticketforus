@@ -4553,3 +4553,20 @@ text-align: left;
 .pop_up_title {
     padding: 11px 0;
 }
+
+.float_none{
+  float: none;
+  margin: 0 auto;
+}
+.buymore_tickets{
+  background-color: #1bca8f;
+color: #fff;
+padding: 8px 20px;
+display: inline-block;
+margin: 22px 0 0;
+border-radius: 30px;
+font-weight: 500;
+}
+.buymore_tickets:hover{
+  color: #000;
+}

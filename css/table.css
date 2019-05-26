@@ -3730,13 +3730,17 @@ body.ticketbisAr #wrap{top:0}
 
 .tabel_1 {
     box-shadow: 5px 0 0 0 inset;
-    color: #7b5f9e;
+    color: #4d2286
 }
 .tabel_2 {
   box-shadow: 5px 0 0 0 inset;
-  color: #6cc712
+  color: #8ae526
 }
 .tabel_3 {
   box-shadow: 5px 0 0 0 inset;
-  color: #ff0055
+  color: #cccccc
+}
+.tabel_4 {
+  box-shadow: 5px 0 0 0 inset;
+  color: #d23115
 }
