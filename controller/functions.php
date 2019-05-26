@@ -84,7 +84,7 @@ function getSeatAvailablity(){
     
     global $con;
     $stmt = $con->prepare(
-            "SELECT r.id as rowId, r.quantity as total, IFNULL(sum(b.quantity), 0) as booked, IFNULL( (r.quantity - sum(b.quantity)), 0) as result
+            "SELECT r.id as rowId, r.quantity as total, IFNULL(sum(b.quantity), 0) as booked, IFNULL( (r.quantity - IFNULL(sum(b.quantity), 0)), 0) as result
             FROM seatrow as r
             LEFT JOIN orders as b ON r.id = b.seatrow_id
             group BY r.id");

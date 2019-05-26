@@ -280,33 +280,40 @@ $event_id = 1;
                             <span class="info-icons pull-right">
                             </span>
                             <span class="tit-evento">'.$val['categoryname'].'</span>
-                            <span class="posicion">
-                            <span class="asiento" data-qa="ticket-row">Row: '.$val['rowname'].'</span>
+                            <!--<span class="posicion">
+                              <span class="asiento" data-qa="ticket-row">Row: '.$val['rowname'].'</span>
+                              </span>-->
+
+                              <span class="posicion">
+                              <span class="asiento" data-qa="ticket-row">Row: 1</span>
+                               <span class="fa_hot"><i class="fa fa-fire_icon"></i> Remaining !</span>
                             </span>
+                              
                          </td>
                          <td class="td-disponibles">';
                             echo '<select name="seat_qty" id="seat_qty_'.$val['rowid'].'" ';
-                            for($st = 0; $st <= $seats[$val['rowid']]['result'];$st++){
+                            // for($st = 0; $st <= $seats[$val['rowid']]['result'];$st++){
+                            for($st = 0; $st <= 20;$st++){
                               echo '<option value="'.$st.'">'.$st.'</option>';
                             }
-                            echo '</select> of '.$seats[$val['rowid']]['result'];
+                            //echo '</select> of '.$seats[$val['rowid']]['result'];
 
                          echo '</td>
                          <td class="td-precio hide-phone">
                             <span class="hide-phone">
-                            <strong data-qa="ticket-list-price">'.$val['price'].'</strong>
+                            <strong data-qa="ticket-list-price"><data>&#163;</data>'.$val['price'].'</strong>
                             </span>
-                            <span data-qa="ticket-list-finalprice" class="hide-phone">
+                            <!--<span data-qa="ticket-list-finalprice" class="hide-phone">
                             '.$val['price'].'
                             <br>
-                            </span>
+                            </span>-->
                          </td>
                          <td class="td-comprar">
                             <span href="javascript:void(0)" class="btn btn-success btn-precio" data-qa="ticket-list-buy">
                             <span class="only-phone">
                             <span itemprop="price">'.$val['price'].'</span>
                             </span>
-                            <a href="'.APP_URL.'/shipping.php?booking_ref='.$booking_ref.'" class="hide-phone buythis" prd="'.$val['rowid'].'">Buy</a>
+                            <a href="'.APP_URL.'/shipping.php?booking_ref='.$booking_ref.'&quantity=1" class="hide-phone buythis" prd="'.$val['rowid'].'">Buy</a>
                             </span>
                          </td>
                       </tr>';
@@ -379,20 +386,9 @@ $event_id = 1;
         <p><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo date('d-m-Y h:i a',strtotime($evdetails['date'].' '.$evdetails['time'])); ?></p>
     </div>
     <div class="pop_up_title">
-      <h3>How many tickets would you like?</h3>
-      <span>These will be adjoining tickets</span>
-      <div class="table_number">
-        <ul>
-          <li><a href="javascript:void(0)">1</a></li>
-          <li><a href="javascript:void(0)">2</a></li>
-          <li><a href="javascript:void(0)">3</a></li>
-        </ul>
-        <ul>
-          <li><a href="javascript:void(0)">4</a></li>
-          <li><a href="javascript:void(0)">5</a></li>
-          <li><a href="javascript:void(0)">6</a></li>
-        </ul>
-      </div>
+    <h3>How many tickets would you like?</h3>
+    <span>Click Buy Tickets</span>
+    <button id="about" type="submit" class="btn btn-primary">Buy Tickets</button>
   </div>
     <?php } ?>
 </div>
