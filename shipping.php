@@ -19,10 +19,44 @@ $rowInfo = getAllInfo($prd_id);
 
 $product_cost = $rowInfo['price'];
 $order_cost = ($prd_qty * $product_cost);
-
-
-
+$order_cost = 2;
+$clientId = 'AfhDW34NDTXLhTn7sA_rASuQVj5qFY7Y81pvgalF5RwqnkSTMPK_aPXd9Bs4wW8rSeUqbZbiZFcAUbEk';
 ?>
+<body>
+  <script
+    src="https://www.paypal.com/sdk/js?client-id=<?php echo $clientId; ?>">
+  </script>
+</body>
+<script>
+  paypal.Buttons({
+    createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: '<?php echo $order_cost; ?>'
+          }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      return actions.order.capture().then(function(details) {
+        alert('Transaction completed by ' + details.payer.name.given_name);
+        console.log(details);
+        // Call your server to save the transaction
+        return fetch('<?php echo APP_URL; ?>/success.php', {
+          method: 'post',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            orderID: data.orderID
+          })
+        });
+      });
+    }
+  }).render('#paypal-button-container');
+</script>
+
 <style media="screen">
   .navbar{
     background: #000;
@@ -176,7 +210,8 @@ $order_cost = ($prd_qty * $product_cost);
         <div class="clearfix"></div>
         
         <div class="col-md-12 text-center">
-          <button type="button" class="btn btn-primary btn_submit">Continue</button>
+            <div id="paypal-button-container"></div>
+          <!--<button type="button" class="btn btn-primary btn_submit">Continue</button>-->
         </div>
       </form>
       </div>
