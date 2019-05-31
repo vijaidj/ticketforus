@@ -21,7 +21,8 @@ print_r($arr);
 <option value="Saudi Arabia">Saudi Arabia</option>
 <option value="Scotland">Scotland</option>
 <option value="Spain">Spain</option>
-<option value="Ireland">Ireland</option>
+<option value="Srilanka">Srilanka</option>
+<option value="United Arab Emirates ">United Arab Emirates </option>
 
 
 exit;
