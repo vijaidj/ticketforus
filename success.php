@@ -4,16 +4,6 @@ include 'config.php';
 require_once 'controller/connect.php';
 require_once 'controller/functions.php';
 require_once 'paypal/transaction.php';
-use Sample;
-
-echo "<pre>";
-$request_body = file_get_contents('php://input');
-$data = json_decode($request_body, true);
-print_r($data); 
-
-$result = \Sample\GetOrder::getOrder($data['orderID']);
-print_r($result); exit;
-
 
 if (isset($_POST["txn_id"]) && isset($_POST["txn_type"])) {
     
